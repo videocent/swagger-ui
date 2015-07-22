@@ -1,0 +1,75 @@
+# Please find information in http://swagger.io/swagger-editor/
+
+swagger: '2.0'
+info:
+  title: Storm API
+  description: |
+    This is the API description for the Storm cloud. 
+    It is still under development.
+    ```
+       API example code has not yet been developed.
+    ```
+  version: "0.0.1"
+  termsOfService: To be defined
+  contact:
+    name: Sensative API team
+    url: http://www.sensative.com
+  license:
+    name: Creative Commons 4.0 International
+    url: http://creativecommons.org/licenses/by/4.0/
+
+# The domain of the service
+host: mapci.sensative.com:8080
+# array of all the schemes that the API supports
+schemes:
+  - http  
+
+# will be prefixed to all paths
+basePath: /api
+
+produces:
+  - application/json
+  
+security:
+  - marvelAPIKey: []
+
+securityDefinitions:
+  marvelAPIKey:
+      type: apiKey
+      in: header
+      name: marvel-key
+      description: Your sectret key can be obtained from Sensative, please contact us.
+
+paths:
+  /in/{sensorID}:
+    post:
+      parameters:
+        - name: sensorID
+          in: path
+          type: string
+          description: Unique id of sensor to update
+          required: true
+          default: "55230e523c5049846b0ea0aa"
+        - name: value
+          in: body
+          description: The sensor parameter and value
+          required: false
+          schema: 
+            $ref: '#/definitions/simpleSensorData'
+      tags:
+        - SensorInput
+      responses:
+        200: 
+          description: Ok
+
+
+definitions:
+  simpleSensorData:
+      properties:
+        n:
+          type: number
+          format: float
+          description: n is the temperature value
+          
+        
+
